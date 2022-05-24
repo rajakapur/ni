@@ -1,5 +1,12 @@
 #!/bin/bash
-
+if [ "${EUID}" -ne 0 ]; then
+		echo "You need to run this script as root"
+		exit 1
+fi
+if [ "$(systemd-detect-virt)" == "openvz" ]; then
+		echo "OpenVZ is not supported"
+		exit 1
+fi
 apt -y install python
 apt -y install tmux
 apt -y install ruby
@@ -17,9 +24,8 @@ echo "echo -e '\e[35m  Script Premium By \e[32m AdamMukhriz \e[0m'" >> .profile
 cd /usr/bin
 wget -O menu "https://raw.githubusercontent.com/rajakapur/ni/main/menu.sh"
 wget -O banner "https://raw.githubusercontent.com/rajakapur/ni/main/banner.sh"
-wget -O menutry "https://raw.githubusercontent.com/rajakapur/ni/main/try.sh"
+wget -O menutry "https://raw.githubusercontent.com/rajakapur/ni/main/menutry.sh"
 wget -O colour "https://raw.githubusercontent.com/rajakapur/ni/main/colour.sh"
-wget -O colour "https://raw.githubusercontent.com/rajakapur/ni/main/adam.sh"
 chmod +x menu
 chmod +x banner
 chmod +x menutry
@@ -29,7 +35,7 @@ chmod +x colour
 mkdir /var/lib/banner-name;
 echo "Enter your name, if not available, please click Enter"
 echo -e "AdamMukhriz" >> /var/lib/banner-name/banner
-echo -e "standard" >> /var/lib/banner-name/ASCII
+echo -e "big" >> /var/lib/banner-name/ASCII
 echo -e "Nama Anda" >> /var/lib/banner-name/username
 echo -e "\e[93m" >> /var/lib/banner-name/colour
 rm -rf setup.sh
