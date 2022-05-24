@@ -24,13 +24,7 @@ MYIP=$(wget -qO- ifconfig.co);
 # VPS Information
 Checkstart1=$(ip route | grep default | cut -d ' ' -f 3 | head -n 1);
 if [[ $Checkstart1 == "venet0" ]]; then
-    clear
-	  lan_net="venet0"
-    typevps="OpenVZ"
-else
-    clear
-		lan_net="eth0"
-    typevps="KVM"
+
 fi
 clear
 # DNS Patch
